@@ -1,3 +1,4 @@
+const { PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices } = require("twilio/lib/rest/pricing/v1/messaging/country.js");
 const RemainderWhatsapp  = require("../models/remainderWhatsApp.model.js");
 const SensorData = require('../models/sensorData.model.js');
 const ApiError = require('../utils/ApiError.js');
@@ -14,7 +15,7 @@ const dailyWhatsappReportSendOnNotification = asyncHandler(async (req, res) =>{
         throw new ApiError(400, `${!soilMoisture ? 'Soil Moisture is required' : ''} ${!temperature ? 'Temperature is required' : ''} ${!humidity ? 'Humidity is required' : ''}`);
     }
 
-    const messageContent = `Today's weather report:
+    const messageContent = `🌤️Today's weather report:
     Soil Moisture: ${soilMoisture}%
     Temperature: ${temperature}°C
     Humidity: ${humidity}%`;
@@ -31,7 +32,36 @@ const dailyWhatsappReportSendOnNotification = asyncHandler(async (req, res) =>{
     })
     .then(message => console.log(message.sid))
 
-})
+});
+
+const waterLevelNotification = asyncHandler(async (req, res) =>{
+    const {waterLevel} = req.body;
+    if(!waterLevel){
+        throw new ApiError(400, 'Water Level is required');
+    }
+    if(waterLevel > 30){
+    const messageContent = `🚰 Water Level: ${waterLevel}% !!!Fill the water tank!!!`;
+    const accountSid = process.env.ACCOUNT_SID;
+    const authToken = process.env.AUTH_TOKEN;
+    const client = require('twilio')(accountSid, authToken);
+
+    client.messages
+    .create({
+        body: messageContent,
+        from: 'whatsapp:+14155238886',
+        to: 'whatsapp:+917908720355'
+    })
+    .then(message => console.log(message.sid))
+    }
+});
+
+
+
+module.exports = {
+    dailyWhatsappReportSendOnNotification,
+    waterLevelNotification
+};
+
 
 
 
