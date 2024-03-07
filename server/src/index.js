@@ -11,7 +11,9 @@ connectDB().then(()=>{
     });
 }).catch((error)=>{
     console.log(`Error in connecting to Database ${error}`);
-})
+});
+
+
 
 
 

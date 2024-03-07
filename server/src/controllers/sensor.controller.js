@@ -7,9 +7,10 @@ const asyncHandler = require('../utils/asyncHandler.js');
 
 const addSensorData = asyncHandler(async (req, res) =>{
 
-    const {soilMoisture, temperature, humidity} = req.body;
+    const { temperature, humidity} = req.body;
+    const soilMoisture = 50;
 
-    if(!soilMoisture || !temperature || !humidity){
+    if( !soilMoisture ||!temperature || !humidity){
         throw new ApiError(400, `${!soilMoisture ? 'Soil Moisture is required' : ''} ${!temperature ? 'Temperature is required' : ''} ${!humidity ? 'Humidity is required' : ''}`);
     }
 

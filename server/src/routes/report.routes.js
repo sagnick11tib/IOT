@@ -7,8 +7,8 @@ const {
 } = require("../controllers/dashboard.controller");
 
 
-router.route("/dashboard").post(addSensorData);
-router.route("/dashboard").get(getAllSensorData);
-router.route("/dashboard/:id").get(getSingleSensorData);
+router.route("/").post(addSensorData);
+router.route("/").get(getAllSensorData);
+router.route("/:id").get(getSingleSensorData);
 
 module.exports = router;

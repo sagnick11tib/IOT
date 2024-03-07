@@ -4,6 +4,8 @@ const SensorData = require('../models/sensorData.model.js');
 const ApiError = require('../utils/ApiError.js');
 const ApiResponse = require('../utils/ApiResponse.js');
 const asyncHandler = require('../utils/asyncHandler.js');
+const client = require('../config/mqtt.js');
+
 
 
 const dailyWhatsappReportSendOnNotification = asyncHandler(async (req, res) =>{
@@ -54,6 +56,8 @@ const waterLevelNotification = asyncHandler(async (req, res) =>{
     .then(message => console.log(message.sid))
     }
 });
+
+
 
 
 
