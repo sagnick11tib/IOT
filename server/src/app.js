@@ -4,7 +4,7 @@ const cors = require("cors");
 
 app.use(express.json({extended:true}));
 app.use(express.urlencoded({extended:true}));
-app.use(cors({credentials:true,origin:process.env.CORS_ORIGIN}));
+app.use(cors({credentials:true,origin:process.env.CORS_ORIGIN,methods:"GET,HEAD,PUT,PATCH,POST,DELETE"}));
 
 const dashboardRouter = require("./routes/dashboard.routes.js");
 const reportRouter = require("./routes/dailyReport.routes.js");
